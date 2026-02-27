@@ -1,31 +1,66 @@
-import { TestBed } from "@angular/core/testing";
-import { AppComponent } from "./app.component";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+import { ProductCardComponent } from './productCard/productCard.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
-describe("AppComponent", () => {
+describe('App', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-    }).compileComponents();
-  });
+    })
+      .overrideComponent(AppComponent, {
+        remove: { imports: [ProductCardComponent] },
+        add: { schemas: [CUSTOM_ELEMENTS_SCHEMA] },
+      })
+      .compileComponents();
 
-  it("should create the app", () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'zenika-ng-website' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual("my first component");
-  });
-
-  it("should render title", () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector("h1")?.textContent).toContain(
-      "Welcome to my first component",
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should display product cards', () => {
+    const debugElement = fixture.debugElement.queryAll(
+      By.css('app-product-card')
+    );
+
+    expect(debugElement.length).toBe(component.products.length);
+  });
+
+  it('should update the total when "addToBasket" class method is called', () => {
+    component.total = 25;
+    component.count = 1;
+    fixture.detectChanges();
+
+    const menu = fixture.debugElement.query(By.css('app-menu'));
+    const header = (fixture.nativeElement as HTMLElement).querySelector(
+      'header'
+    );
+
+    expect(
+      (menu.nativeElement as HTMLElement).querySelector('.nav-link')
+        ?.textContent
+    ).toBe('Voir mon panier 1');
+    expect(header?.textContent).toContain("Votre panier s'élève à 25 €");
+
+    const products = fixture.debugElement.queryAll(By.css('app-product-card'));
+    products[0].triggerEventHandler('addToBasket', component.products[0]);
+    fixture.detectChanges();
+
+    expect(
+      (menu.nativeElement as HTMLElement).querySelector('.nav-link')
+        ?.textContent
+    ).toBe('Voir mon panier 2');
+    expect(header?.textContent).toContain(
+      `Votre panier s'élève à ${25 + component.products[0].price} €`
     );
   });
 });

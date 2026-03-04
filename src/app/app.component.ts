@@ -48,8 +48,17 @@ export class AppComponent {
 
   count = 0;
   total = 0;
+
+  get hasProductInStock(): boolean {
+    return this.products.some(({ stock }) => stock > 0);
+  }
+
   protected updateBasket(product: Product) {
     this.total += product.price;
     this.count++;
+
+    this.products = this.products.map((p) =>
+      p.id === product.id ? { ...p, stock: p.stock - 1 } : p
+    );
   }
 }

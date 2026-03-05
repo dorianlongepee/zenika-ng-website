@@ -1,4 +1,4 @@
-<div class="card h-100 text-center">
+<div [ngClass]="{'text-bg-warning': isLastChance}" class="card h-100 text-center">
   <img class="card-img-top" [attr.src]="product().photo" alt="Product image" />
   <div class="card-header">
     <small>{{ product().description }}</small>

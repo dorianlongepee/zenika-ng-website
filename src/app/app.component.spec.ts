@@ -63,4 +63,37 @@ describe('App', () => {
       `Votre panier s'élève à ${25 + component.products[0].price} €`
     );
   });
+
+  it('should decrease the stock of the product added to the basket', () => {
+    const originalStock = component.products[0].stock;
+    const products = fixture.debugElement.queryAll(By.css('app-product-card'));
+    products[0].triggerEventHandler('addToBasket', component.products[0]);
+    fixture.detectChanges();
+
+    expect(component.products[0].stock).toBe(originalStock - 1);
+  });
+
+  it('should not display products whose stock is empty', () => {
+    component.products[0].stock = 0;
+    fixture.detectChanges();
+    const products = fixture.debugElement.queryAll(By.css('app-product-card'));
+
+    expect(products.length).toBe(3);
+    expect(fixture.nativeElement as HTMLElement).not.toContain(
+      component.products[0].title
+    );
+  });
+
+  it('should display a message when stock is completely empty', () => {
+    component.products = component.products.map((p) => {
+      return { ...p, stock: 0 };
+    });
+    fixture.detectChanges();
+    const products = fixture.debugElement.queryAll(By.css('app-product-card'));
+
+    expect(products).toEqual([]);
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain(
+      'Désolé, notre stock est vide !'
+    );
+  });
 });

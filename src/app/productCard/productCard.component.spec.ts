@@ -1,3 +1,4 @@
+import { By } from '@angular/platform-browser';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductCardComponent } from './productCard.component';
@@ -60,5 +61,28 @@ describe('ProductComponent', () => {
     const spy = spyOn(component.addToBasket, 'emit');
     (fixture.nativeElement as HTMLElement).querySelector('button')?.click();
     expect(spy).toHaveBeenCalledOnceWith(component.product());
+  });
+
+  it('should not add the "text-bg-warning" className when stock is greater than 1', () => {
+    component.product().stock = 2;
+    fixture.detectChanges();
+    const classes = (fixture.nativeElement as HTMLElement)
+      .querySelector('.card')
+      ?.getAttribute('class');
+
+    console.log(classes);
+
+    expect(classes).not.toContain('text-bg-warning');
+  });
+  it('should add the "text-bg-warning" className when stock is equal to 1', () => {
+    component.product().stock = 1;
+    fixture.detectChanges();
+    const classes = (fixture.nativeElement as HTMLElement)
+      .querySelector('.card')
+      ?.getAttribute('class');
+
+    console.log(classes);
+
+    expect(classes).toContain('text-bg-warning');
   });
 });

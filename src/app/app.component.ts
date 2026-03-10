@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { MenuComponent } from './menu/menu.component';
-import { Product } from './productCard/product';
-import { ProductCardComponent } from './productCard/productCard.component';
+import { Product } from './product-card/product';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,7 @@ import { ProductCardComponent } from './productCard/productCard.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'my first component';
-  products: Product[] = [
+  readonly products = signal<Product[]>([
     {
       id: 'welsch',
       title: 'Coding the welsch',
@@ -44,21 +43,22 @@ export class AppComponent {
       price: 19,
       stock: 2,
     },
-  ];
+  ]);
+  readonly count = signal<number>(0);
+  readonly total = signal<number>(0);
 
-  count = 0;
-  total = 0;
-
-  get hasProductInStock(): boolean {
-    return this.products.some(({ stock }) => stock > 0);
-  }
+  readonly hasProductsInStock = computed(() =>
+    this.products().some(({ stock }) => stock > 0)
+  );
 
   protected updateBasket(product: Product) {
-    this.total += product.price;
-    this.count++;
+    this.total.update((total) => total + product.price);
+    this.count.update((count) => count + 1);
 
-    this.products = this.products.map((p) =>
-      p.id === product.id ? { ...p, stock: p.stock - 1 } : p
-    );
+    this.products.update((p) => {
+      return p.map((pro) => {
+        return pro.id === product.id ? { ...pro, stock: pro.stock - 1 } : pro;
+      });
+    });
   }
 }

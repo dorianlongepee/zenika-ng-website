@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { MenuComponent } from './menu/menu.component';
-import { Product } from './productCard/product';
-import { ProductCardComponent } from './productCard/productCard.component';
+import { Product } from './product-card/product';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import { ProductCardComponent } from './productCard/productCard.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  products = signal<Product[]>([
+  readonly products = signal<Product[]>([
     {
       id: 'welsch',
       title: 'Coding the welsch',
@@ -44,10 +44,10 @@ export class AppComponent {
       stock: 2,
     },
   ]);
-  count = signal<number>(0);
-  total = signal<number>(0);
+  readonly count = signal<number>(0);
+  readonly total = signal<number>(0);
 
-  hasProductInStock = computed(() =>
+  readonly hasProductsInStock = computed(() =>
     this.products().some(({ stock }) => stock > 0)
   );
 

@@ -5,12 +5,12 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-product-card',
   imports: [NgClass],
-  templateUrl: './productCard.component.html',
-  styleUrl: './productCard.component.css',
+  templateUrl: './product-card.component.html',
+  styleUrl: './product-card.component.css',
 })
 export class ProductCardComponent {
-  product = input.required<Product>();
-  addToBasket = output<Product>();
+  readonly product = input.required<Product>();
+  readonly addToBasket = output<Product>();
 
   get isLastChance() {
     return this.product().stock == 1;

@@ -10,10 +10,13 @@
       <h2 class="h4">Catalogue</h2>
 
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-        @if(hasProductInStock()){
+        @if(hasProductsInStock()){
           @for (product of products(); track product.id) {
             @if(product.stock > 0){
-              <app-product-card [product]="product" (addToBasket)="updateBasket($event)"/>
+              <app-product-card
+              [attr.data-testid]="`productCard-${product.id}`"
+              [product]="product" 
+              (addToBasket)="updateBasket($event)"/>
             }
           }
         } @else {

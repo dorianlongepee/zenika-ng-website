@@ -1,4 +1,4 @@
-import { ProductCardComponent } from './../productCard/productCard.component';
+import { ProductCardComponent } from '../product-card/product-card.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuComponent } from './menu.component';

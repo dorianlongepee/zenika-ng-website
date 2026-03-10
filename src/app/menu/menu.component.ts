@@ -7,5 +7,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './menu.component.css',
 })
 export class MenuComponent {
-  totalPanier = input<number>(0);
+  readonly totalPanier = input<number>(0);
 }

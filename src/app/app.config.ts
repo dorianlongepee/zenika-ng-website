@@ -9,6 +9,11 @@ import { routes } from './app.routes';
 import { CatalogService } from './catalog/catalog.service';
 import { BasketService } from './basket/basket.service';
 import { APP_TITLE } from './app.token';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID } from '@angular/core';
+
+registerLocaleData(localeFr);
 
 const appTitleProvider: ValueProvider = {
   provide: APP_TITLE,
@@ -22,5 +27,7 @@ export const appConfig: ApplicationConfig = {
     BasketService,
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    { provide: LOCALE_ID, useValue: 'fr' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' },
   ],
 };

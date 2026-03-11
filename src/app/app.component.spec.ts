@@ -6,7 +6,6 @@ import { BasketStubService } from './basket/basket.service.stub';
 import { CatalogService } from './catalog/catalog.service';
 import { CatalogStubService } from './catalog/catalog.service.stub';
 import { APP_TITLE } from './app.token';
-import { findIndex } from 'rxjs';
 
 describe('App', () => {
   let component: AppComponent;
@@ -39,7 +38,6 @@ describe('App', () => {
     expect(title).toBe('Title');
   });
 
-  //FIXME
   xit('should not display products whose stock is empty', () => {
     expect(catalogService.products()).toHaveSize(3);
     let products = fixture.debugElement.queryAll(By.css('app-product-card'));

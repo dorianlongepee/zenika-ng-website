@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { CatalogService } from './catalog.service';
 import { Product } from '../product-card/product';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class CatalogStubService implements Partial<CatalogService> {
@@ -33,5 +34,9 @@ export class CatalogStubService implements Partial<CatalogService> {
 
   hasProductsInStock = signal(true);
 
-  decreaseStock(product: Product) {}
+  fetchProducts(): Observable<Product[]> {
+    return of(this.products());
+  }
+
+  decreaseStock(productId: string) {}
 }

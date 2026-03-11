@@ -12,3 +12,33 @@ Lab 5: pas d'indication sur la création de getter dans la slide associé.
 
 readonly input/output/signaux pour pas casser angular
 convention kebab case pour les noms de fichiers et de composants
+
+// describe('Message', () => {
+// const message = () => fixture.debugElement.query(
+// By.css('[data-testid="emptyMessage"]')
+// );
+
+// const setTestData = ({ hasProductsInStock = true }: { hasProductsInStock?: boolean } = {}) => {
+// (catalogService as unknown as CatalogStubService).hasProductsInStock.set(
+// hasProductsInStock
+// );
+// fixture.detectChanges();  
+ // };
+
+// it('true', () => {
+// setTestData({
+// hasProductsInStock: true
+// });
+
+// expect(message).toBeNull();
+// });
+
+// it('false', () => {
+// setTestData({
+// hasProductsInStock: false
+// });
+
+// expect(message).not.toBeNull();
+// });
+
+// });

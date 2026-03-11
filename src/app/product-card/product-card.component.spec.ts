@@ -29,23 +29,27 @@ describe('ProductComponent', () => {
     fixture.detectChanges();
   });
 
-  // FIXME: ici, j'ai essayé de mettre dans des describe, mais fixture est à null, d'après SO, c'est psq les blocs describe sont exécutés avant le beforeEach
-  it('should display the product as "last chance" if stock equals 1', () => {
-    const card = fixture.debugElement.query(By.css('[data-testid="card"]'));
-    fixture.componentRef.setInput('product', { ...productMock, stock: 1 });
-    fixture.detectChanges();
+  describe('LastChance', () => {
+    it('should display the product as "last chance" if stock equals 1', () => {
+      const card = fixture.debugElement.query(By.css('[data-testid="card"]'));
+      fixture.componentRef.setInput('product', { ...productMock, stock: 1 });
+      fixture.detectChanges();
 
-    expect(card.classes).toEqual({ ...card.classes, 'text-bg-warning': true });
-  });
+      expect(card.classes).toEqual({
+        ...card.classes,
+        'text-bg-warning': true,
+      });
+    });
 
-  it('should not display the product as "last chance" if stock greater than 1', () => {
-    const card = fixture.debugElement.query(By.css('[data-testid="card"]'));
-    fixture.componentRef.setInput('product', { ...productMock, stock: 2 });
-    fixture.detectChanges();
+    it('should not display the product as "last chance" if stock greater than 1', () => {
+      const card = fixture.debugElement.query(By.css('[data-testid="card"]'));
+      fixture.componentRef.setInput('product', { ...productMock, stock: 2 });
+      fixture.detectChanges();
 
-    expect(card.classes).not.toEqual({
-      ...card.classes,
-      'text-bg-warning': true,
+      expect(card.classes).not.toEqual({
+        ...card.classes,
+        'text-bg-warning': true,
+      });
     });
   });
 

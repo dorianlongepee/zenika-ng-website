@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -6,6 +7,7 @@ import { BasketService } from '../basket/basket.service';
 import { BasketStubService } from '../basket/basket.service.stub';
 import { By } from '@angular/platform-browser';
 import { BasketItem } from '../basket/basket-item';
+import { DebugElement } from '@angular/core';
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
@@ -35,13 +37,22 @@ describe('MenuComponent', () => {
   });
 
   it('should display the number of items', () => {
-    const badge = fixture.debugElement.query(By.css('[data-testid="badge"]'));
-    expect(badge.nativeElement.innerText).toBe('0');
+    // Given
+    let numberOfItems = fixture.debugElement.query(By.css('.badge'))
+      .nativeElement.textContent;
+    expect(numberOfItems).toContain(0);
 
-    basketService.addItem(fakeBasketItems[0]);
-    basketService.addItem(fakeBasketItems[1]);
+    // When
+    (TestBed.inject(BasketService) as unknown as BasketStubService).items.set([
+      {} as BasketItem,
+      {} as BasketItem,
+    ]);
     fixture.detectChanges();
 
-    expect(badge.nativeElement.innerText).toBe('2');
+    // Then
+    numberOfItems = (fixture.nativeElement as HTMLElement).querySelector(
+      '.badge'
+    )?.textContent;
+    expect(numberOfItems).toContain(2);
   });
 });

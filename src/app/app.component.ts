@@ -24,7 +24,12 @@ export class AppComponent {
   readonly hasProductsInStock = this.catalogService.hasProductsInStock;
 
   protected updateBasket(product: Product) {
-    this.basketService.addItem(product);
-    this.catalogService.decreaseStock(product);
+    this.basketService.addItem(product).subscribe();
+    this.catalogService.decreaseStock(product.id);
+  }
+
+  constructor() {
+    this.catalogService.fetchProducts().subscribe();
+    this.basketService.fetchBasket().subscribe();
   }
 }

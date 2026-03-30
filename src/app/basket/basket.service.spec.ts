@@ -28,7 +28,7 @@ describe('BasketService', () => {
       service.fetchBasket().subscribe();
 
       const req = httpTestingController.expectOne(
-        'http://localhost:8080/api/basket'
+        'http://localhost:8080/api/basket',
       );
       expect(req.request.method).toBe('GET');
     });
@@ -44,7 +44,7 @@ describe('BasketService', () => {
       });
 
       const req = httpTestingController.expectOne(
-        'http://localhost:8080/api/basket'
+        'http://localhost:8080/api/basket',
       );
       req.flush(responseItems);
     });
@@ -62,7 +62,7 @@ describe('BasketService', () => {
       });
 
       const req = httpTestingController.expectOne(
-        'http://localhost:8080/api/basket'
+        'http://localhost:8080/api/basket',
       );
       req.flush(responseItems);
     });
@@ -76,11 +76,11 @@ describe('BasketService', () => {
       ];
 
       service.fetchBasket().subscribe(() => {
-        expect(service.count()).toBe(30);
+        expect(service.total()).toBe(30);
       });
 
       const req = httpTestingController.expectOne(
-        'http://localhost:8080/api/basket'
+        'http://localhost:8080/api/basket',
       );
       req.flush(responseItems);
     });
@@ -96,7 +96,7 @@ describe('BasketService', () => {
       service.addItem(responseItem).subscribe();
 
       const req = httpTestingController.expectOne(
-        'http://localhost:8080/api/basket'
+        'http://localhost:8080/api/basket',
       );
       expect(req.request.method).toBe('POST');
     });
@@ -107,7 +107,7 @@ describe('BasketService', () => {
       });
 
       const req = httpTestingController.expectOne(
-        'http://localhost:8080/api/basket'
+        'http://localhost:8080/api/basket',
       );
       req.flush(responseItem);
     });
@@ -117,11 +117,11 @@ describe('BasketService', () => {
 
       service.addItem(responseItem).subscribe(() => {
         expect(service.items()).toEqual([responseItem]);
-        expect(service.count()).toBe(20);
+        expect(service.total()).toBe(20);
       });
 
       const req = httpTestingController.expectOne(
-        'http://localhost:8080/api/basket'
+        'http://localhost:8080/api/basket',
       );
       req.flush(responseItem);
     });

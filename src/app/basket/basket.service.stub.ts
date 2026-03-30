@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 @Injectable()
 export class BasketStubService implements Partial<BasketService> {
   items = signal<BasketItem[]>([]);
-  count = signal(0);
+  total = signal(0);
 
   fetchBasket(): Observable<BasketItem[]> {
     return of(this.items());

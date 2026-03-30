@@ -1,10 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
 import { BasketService } from './basket.service';
 import { Component, inject } from '@angular/core';
+import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 
 @Component({
   selector: 'app-basket',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, CheckoutFormComponent],
   templateUrl: './basket.component.html',
   styleUrl: './basket.component.css',
 })

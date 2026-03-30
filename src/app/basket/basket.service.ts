@@ -12,7 +12,7 @@ export class BasketService {
   private readonly _items = signal<BasketItem[]>([]);
   readonly items = this._items.asReadonly();
 
-  readonly count = computed<number>(() => {
+  readonly total = computed<number>(() => {
     return this._items().reduce((total, { price }) => total + price, 0);
   });
 

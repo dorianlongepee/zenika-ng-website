@@ -1,10 +1,11 @@
 import { Component, input, output } from '@angular/core';
 import { Product } from './product';
 import { CurrencyPipe, NgClass, UpperCasePipe } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-product-card',
-  imports: [NgClass, CurrencyPipe, UpperCasePipe],
+  imports: [NgClass, CurrencyPipe, UpperCasePipe, RouterLink],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css',
 })
